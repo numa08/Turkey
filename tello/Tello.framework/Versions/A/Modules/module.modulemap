@@ -1,0 +1,8 @@
+framework module "Tello" {
+	header "ref.h"
+    header "Tello.objc.h"
+    header "universe.objc.h"
+    header "Tello.h"
+
+    export *
+}
