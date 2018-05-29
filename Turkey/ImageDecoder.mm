@@ -26,6 +26,7 @@ extern "C" {
 }
 @property NSPipe *fifoPipe;
 @property NSMutableArray *packetArray;
+@property BOOL captureRunning;
 - (void)startCaptureThread;
 - (void)captureInFFMpeg;
 - (UIImage*)rgb24ToUIImage:(uint8_t*)pRgb width:(int)width height:(int)height wrap:(int)wrap;
@@ -43,6 +44,7 @@ extern "C" {
 
 - (BOOL)open
 {
+    self.captureRunning = YES;
     writeFifoQueue = dispatch_queue_create("write_fifo", DISPATCH_QUEUE_SERIAL);
     
     // 正しいフレーム情報をもった動画ファイルを読み込んで、
@@ -86,7 +88,7 @@ extern "C" {
 
 - (void)close
 {
-//    close(self.fifoDescriptor);
+    self.captureRunning = NO;
 }
 
 -(void)startCaptureThread
@@ -106,8 +108,6 @@ extern "C" {
     AVInputFormat *input_format = av_find_input_format("h264");
     AVFormatContext *format_context = avformat_alloc_context();
     format_context->probesize = INT_MAX;
-//    format_context->max_analyze_duration = 20000000;
-    format_context->debug = 1;
     AVDictionary *format_dictionary = NULL;
     av_dict_set(&format_dictionary, "pixel_format", "yuv420p", 0);
     av_dict_set(&format_dictionary, "video_size", "960x720", 0);
@@ -171,7 +171,7 @@ extern "C" {
     }
     
     AVPacket packet;
-    while (av_read_frame(format_context, &packet) == 0) {
+    while (av_read_frame(format_context, &packet) == 0 && self.captureRunning) {
         if (packet.stream_index == stream_index) {
             int ret;
             ret = avcodec_send_packet(codec_context, &packet);
@@ -188,8 +188,11 @@ extern "C" {
         }
         av_packet_unref(&packet);
     }
-
-    NSLog(@"ok codec %d", stream->codecpar->codec_id);
+    sws_freeContext(sws_context);
+    avcodec_free_context(&codec_context);
+    av_frame_free(&dest_frame);
+    av_frame_free(&source_frame);
+    avformat_free_context(format_context);
 }
 
 - (UIImage*)rgb24ToUIImage:(uint8_t*)pRgb width:(int)width height:(int)height wrap:(int)wrap
