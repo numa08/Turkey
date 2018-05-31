@@ -28,6 +28,10 @@
 		24555C8320A4A3C900EE655E /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24555C8220A4A3C900EE655E /* VideoToolbox.framework */; };
 		24555C8520A4A41A00EE655E /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24555C8420A4A41900EE655E /* AVKit.framework */; };
 		24555C8720A4A52900EE655E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24555C8620A4A52900EE655E /* AudioToolbox.framework */; };
+		247A5F5220BFD271003F2AD0 /* FirstPersonReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247A5F5120BFD271003F2AD0 /* FirstPersonReactor.swift */; };
+		24919DC220BFD60E0021069B /* DroneManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC120BFD60E0021069B /* DroneManagerService.swift */; };
+		24919DC420BFE4860021069B /* ImageDecoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC320BFE4860021069B /* ImageDecoderService.swift */; };
+		24919DC720BFE8FE0021069B /* FirstPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC620BFE8FE0021069B /* FirstPersonViewController.swift */; };
 		24CD4AA220A9729D00324EFE /* movie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 24CD4AA120A9729D00324EFE /* movie.mov */; };
 		24CD4BC020A9D70700324EFE /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB220A9D70700324EFE /* libavutil.a */; };
 		24CD4BC120A9D70700324EFE /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB320A9D70700324EFE /* libavfilter.a */; };
@@ -38,9 +42,12 @@
 		24CD4BC620A9D70700324EFE /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB820A9D70700324EFE /* libswresample.a */; };
 		24CD4BC720A9D70700324EFE /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB920A9D70700324EFE /* libswscale.a */; };
 		24CD4BC820A9D70700324EFE /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BBF20A9D70700324EFE /* libx264.a */; };
+		5531020FB0920652AD68A916 /* Pods_Turkey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C7AB4461AF2F295E3AB045 /* Pods_Turkey.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		116F5A186E0666C12EC3A1ED /* Pods-Turkey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turkey.release.xcconfig"; path = "Pods/Target Support Files/Pods-Turkey/Pods-Turkey.release.xcconfig"; sourceTree = "<group>"; };
+		20C7AB4461AF2F295E3AB045 /* Pods_Turkey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Turkey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24085F7C20A1926B00F52188 /* Turkey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Turkey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24085F7F20A1926B00F52188 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24085F8120A1926B00F52188 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +73,10 @@
 		24555C8220A4A3C900EE655E /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		24555C8420A4A41900EE655E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		24555C8620A4A52900EE655E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		247A5F5120BFD271003F2AD0 /* FirstPersonReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPersonReactor.swift; sourceTree = "<group>"; };
+		24919DC120BFD60E0021069B /* DroneManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneManagerService.swift; sourceTree = "<group>"; };
+		24919DC320BFE4860021069B /* ImageDecoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDecoderService.swift; sourceTree = "<group>"; };
+		24919DC620BFE8FE0021069B /* FirstPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPersonViewController.swift; sourceTree = "<group>"; };
 		24CD4AA120A9729D00324EFE /* movie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = movie.mov; sourceTree = "<group>"; };
 		24CD4B3B20A9D70700324EFE /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		24CD4B3C20A9D70700324EFE /* postprocess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocess.h; sourceTree = "<group>"; };
@@ -189,6 +200,7 @@
 		24CD4BBC20A9D70700324EFE /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		24CD4BBD20A9D70700324EFE /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		24CD4BBF20A9D70700324EFE /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
+		628F16C18F2C01E6F2696492 /* Pods-Turkey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turkey.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Turkey/Pods-Turkey.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +232,7 @@
 				24CD4BC120A9D70700324EFE /* libavfilter.a in Frameworks */,
 				24CD4BC620A9D70700324EFE /* libswresample.a in Frameworks */,
 				24CD4BC220A9D70700324EFE /* libavcodec.a in Frameworks */,
+				5531020FB0920652AD68A916 /* Pods_Turkey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +245,7 @@
 				24085F7E20A1926B00F52188 /* Turkey */,
 				24085F7D20A1926B00F52188 /* Products */,
 				24085F9120A1937800F52188 /* Frameworks */,
+				2BD1999B3F5301750D9580D0 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,6 +260,8 @@
 		24085F7E20A1926B00F52188 /* Turkey */ = {
 			isa = PBXGroup;
 			children = (
+				24919DC020BFD5F10021069B /* Services */,
+				247A5F4F20BFD240003F2AD0 /* UI */,
 				24CD4AA120A9729D00324EFE /* movie.mov */,
 				24085F7F20A1926B00F52188 /* AppDelegate.swift */,
 				24085F8120A1926B00F52188 /* ViewController.swift */,
@@ -254,8 +270,6 @@
 				24085F8820A1926C00F52188 /* LaunchScreen.storyboard */,
 				24085F8B20A1926C00F52188 /* Info.plist */,
 				240D601420A3A8070078D167 /* Turkey-Bridging-Header.h */,
-				24555B5B20A4677A00EE655E /* ImageDecoder.h */,
-				24555B5C20A4677A00EE655E /* ImageDecoder.mm */,
 			);
 			path = Turkey;
 			sourceTree = "<group>";
@@ -279,8 +293,45 @@
 				24555B6020A46E2C00EE655E /* AssetsLibrary.framework */,
 				24555B5E20A46E2500EE655E /* Accelerate.framework */,
 				24085F9520A1DB4400F52188 /* Tello.framework */,
+				20C7AB4461AF2F295E3AB045 /* Pods_Turkey.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		247A5F4F20BFD240003F2AD0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				24919DC520BFE8E30021069B /* ViewControllers */,
+				247A5F5020BFD257003F2AD0 /* Reactors */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		247A5F5020BFD257003F2AD0 /* Reactors */ = {
+			isa = PBXGroup;
+			children = (
+				247A5F5120BFD271003F2AD0 /* FirstPersonReactor.swift */,
+			);
+			path = Reactors;
+			sourceTree = "<group>";
+		};
+		24919DC020BFD5F10021069B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				24555B5B20A4677A00EE655E /* ImageDecoder.h */,
+				24555B5C20A4677A00EE655E /* ImageDecoder.mm */,
+				24919DC120BFD60E0021069B /* DroneManagerService.swift */,
+				24919DC320BFE4860021069B /* ImageDecoderService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		24919DC520BFE8E30021069B /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				24919DC620BFE8FE0021069B /* FirstPersonViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		24CD4B3720A9D70700324EFE /* Vendor */ = {
@@ -524,6 +575,15 @@
 			path = lib;
 			sourceTree = "<group>";
 		};
+		2BD1999B3F5301750D9580D0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				628F16C18F2C01E6F2696492 /* Pods-Turkey.debug.xcconfig */,
+				116F5A186E0666C12EC3A1ED /* Pods-Turkey.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -531,9 +591,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24085F8E20A1926C00F52188 /* Build configuration list for PBXNativeTarget "Turkey" */;
 			buildPhases = (
+				0848DBF58E25CC087D584CD7 /* [CP] Check Pods Manifest.lock */,
 				24085F7820A1926B00F52188 /* Sources */,
 				24085F7920A1926B00F52188 /* Frameworks */,
 				24085F7A20A1926B00F52188 /* Resources */,
+				173801E27F04885F52F7C20E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -592,13 +654,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0848DBF58E25CC087D584CD7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Turkey-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		173801E27F04885F52F7C20E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Turkey/Pods-Turkey-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ReactorKit/ReactorKit.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactorKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Turkey/Pods-Turkey-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		24085F7820A1926B00F52188 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24919DC420BFE4860021069B /* ImageDecoderService.swift in Sources */,
+				24919DC220BFD60E0021069B /* DroneManagerService.swift in Sources */,
 				24555B5D20A4677A00EE655E /* ImageDecoder.mm in Sources */,
 				24085F8220A1926B00F52188 /* ViewController.swift in Sources */,
+				24919DC720BFE8FE0021069B /* FirstPersonViewController.swift in Sources */,
+				247A5F5220BFD271003F2AD0 /* FirstPersonReactor.swift in Sources */,
 				24085F8020A1926B00F52188 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -741,6 +850,7 @@
 		};
 		24085F8F20A1926C00F52188 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 628F16C18F2C01E6F2696492 /* Pods-Turkey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -780,6 +890,7 @@
 		};
 		24085F9020A1926C00F52188 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 116F5A186E0666C12EC3A1ED /* Pods-Turkey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
