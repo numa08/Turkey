@@ -32,6 +32,8 @@
 		24919DC220BFD60E0021069B /* DroneManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC120BFD60E0021069B /* DroneManagerService.swift */; };
 		24919DC420BFE4860021069B /* ImageDecoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC320BFE4860021069B /* ImageDecoderService.swift */; };
 		24919DC720BFE8FE0021069B /* FirstPersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC620BFE8FE0021069B /* FirstPersonViewController.swift */; };
+		24919DCA20C0D7EF0021069B /* errorToThrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24919DC920C0D7EF0021069B /* errorToThrow.swift */; };
+		24919DCC20C0DB750021069B /* FirstPersonViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24919DCB20C0DB750021069B /* FirstPersonViewController.storyboard */; };
 		24CD4AA220A9729D00324EFE /* movie.mov in Resources */ = {isa = PBXBuildFile; fileRef = 24CD4AA120A9729D00324EFE /* movie.mov */; };
 		24CD4BC020A9D70700324EFE /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB220A9D70700324EFE /* libavutil.a */; };
 		24CD4BC120A9D70700324EFE /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB320A9D70700324EFE /* libavfilter.a */; };
@@ -77,6 +79,8 @@
 		24919DC120BFD60E0021069B /* DroneManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneManagerService.swift; sourceTree = "<group>"; };
 		24919DC320BFE4860021069B /* ImageDecoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDecoderService.swift; sourceTree = "<group>"; };
 		24919DC620BFE8FE0021069B /* FirstPersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPersonViewController.swift; sourceTree = "<group>"; };
+		24919DC920C0D7EF0021069B /* errorToThrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = errorToThrow.swift; sourceTree = "<group>"; };
+		24919DCB20C0DB750021069B /* FirstPersonViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FirstPersonViewController.storyboard; sourceTree = "<group>"; };
 		24CD4AA120A9729D00324EFE /* movie.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = movie.mov; sourceTree = "<group>"; };
 		24CD4B3B20A9D70700324EFE /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		24CD4B3C20A9D70700324EFE /* postprocess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postprocess.h; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 		24085F7E20A1926B00F52188 /* Turkey */ = {
 			isa = PBXGroup;
 			children = (
+				24919DC820C0D7DE0021069B /* Util */,
 				24919DC020BFD5F10021069B /* Services */,
 				247A5F4F20BFD240003F2AD0 /* UI */,
 				24CD4AA120A9729D00324EFE /* movie.mov */,
@@ -330,8 +335,17 @@
 			isa = PBXGroup;
 			children = (
 				24919DC620BFE8FE0021069B /* FirstPersonViewController.swift */,
+				24919DCB20C0DB750021069B /* FirstPersonViewController.storyboard */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		24919DC820C0D7DE0021069B /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				24919DC920C0D7EF0021069B /* errorToThrow.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		24CD4B3720A9D70700324EFE /* Vendor */ = {
@@ -647,6 +661,7 @@
 			files = (
 				24085F8A20A1926C00F52188 /* LaunchScreen.storyboard in Resources */,
 				24CD4AA220A9729D00324EFE /* movie.mov in Resources */,
+				24919DCC20C0DB750021069B /* FirstPersonViewController.storyboard in Resources */,
 				24085F8720A1926C00F52188 /* Assets.xcassets in Resources */,
 				24085F8520A1926B00F52188 /* Main.storyboard in Resources */,
 			);
@@ -708,6 +723,7 @@
 				24085F8220A1926B00F52188 /* ViewController.swift in Sources */,
 				24919DC720BFE8FE0021069B /* FirstPersonViewController.swift in Sources */,
 				247A5F5220BFD271003F2AD0 /* FirstPersonReactor.swift in Sources */,
+				24919DCA20C0D7EF0021069B /* errorToThrow.swift in Sources */,
 				24085F8020A1926B00F52188 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

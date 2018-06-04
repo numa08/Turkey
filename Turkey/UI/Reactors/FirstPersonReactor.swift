@@ -50,13 +50,15 @@ public final class FirstPersonReactor : Reactor {
     }
     
     public func reduce(state: FirstPersonReactor.State, mutation: FirstPersonReactor.Mutation) -> FirstPersonReactor.State {
-        var state = state
         switch mutation {
         case let .connected(status):
-            state.connectionState = status
+            var newState = state
+            newState.connectionState = status
+            return newState
         case let .decodeImage(image):
-            state.frame = image
+            var newState = state
+            newState.frame = image
+            return newState
         }
-        return state
     }
 }

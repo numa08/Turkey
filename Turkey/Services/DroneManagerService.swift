@@ -42,46 +42,32 @@ TelloVideoFrameEventHandlerProtocol{
         let obs = Observable<Void>.create({emitter in
             DispatchQueue(label: "tello").async {
                 TelloInitDrone(port)
-                var error: NSError?
-                let drone = {(fn: (NSErrorPointer) -> ()) in
-                    if error != nil {
-                        return
-                    }
-                    fn(&error)
-                }
-                drone({TelloRegisterOnConnectedEvent(self, $0)})
-                drone({TelloStart($0)})
-                if let error = error {
+                do {
+                    let _ = try errorToThrow({TelloRegisterOnConnectedEvent(self, $0)})
+                    let _ = try errorToThrow({TelloStart($0)})
+                } catch {
                     emitter.onError(error)
                 }
             }
             emitter.onNext(())
             return Disposables.create()
         }).share(replay: 1)
-        return obs.flatMap({_ in self.droneConnectedEventSubject})
+        return obs.flatMap({_ in self.droneConnectedEventSubject}).share(replay: 1)
     }
     
     func startVideo(rate: Int) -> Observable<Data> {
         let obs = Observable<Void>.create({emitter in
-            var error: NSError?
-            let drone = {(fn: (NSErrorPointer) -> ()) in
-                if error != nil {
-                    return
-                }
-                fn(&error)
-            }
-            drone({ptr in TelloRegisterVideoFrameEvent(self, ptr)})
-            drone({ptr in TelloSetVideoEncoderRate(rate, ptr)})
-            drone({ptr in TelloStartVideo(ptr)})
-            if let error = error {
-                emitter.onError(error)
-            } else {
+            do {
+                let _ = try errorToThrow({TelloRegisterVideoFrameEvent(self, $0)})
+                let _ = try errorToThrow({TelloSetVideoEncoderRate(rate, $0)})
+                let _ = try errorToThrow({TelloStartVideo($0)})
                 emitter.onNext(())
-                emitter.onCompleted()
+            } catch {
+                emitter.onError(error)
             }
             return Disposables.create()
         }).share(replay: 1)
-        return obs.flatMap({_ in self.droneVideoFrameEventSubject})
+        return obs.flatMap({_ in self.droneVideoFrameEventSubject}).share(replay: 1)
     }
     
     func conected() {

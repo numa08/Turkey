@@ -180,9 +180,10 @@ extern "C" {
                 av_strerror(AVERROR(ret), buf, 1024);
                 NSLog(@"avcodec_send_packet failed, %s", buf);
             }
+            
             while (avcodec_receive_frame(codec_context, source_frame) == 0) {
                 sws_scale(sws_context, source_frame->data, source_frame->linesize, 0, source_height, dest_frame->data, dest_frame->linesize);
-               UIImage * image = [self rgb24ToUIImage:dest_frame->data[0] width:dest_width height:dest_height wrap:dest_frame->linesize[0]];
+                UIImage * image = [self rgb24ToUIImage:dest_frame->data[0] width:dest_width height:dest_height wrap:dest_frame->linesize[0]];
                 [self.delegate decoder:self didDecodeImage:image];
             }
         }
