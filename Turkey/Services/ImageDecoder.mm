@@ -25,7 +25,6 @@ extern "C" {
     dispatch_queue_t writeFifoQueue;
 }
 @property NSPipe *fifoPipe;
-@property NSMutableArray *packetArray;
 @property BOOL captureRunning;
 - (void)startCaptureThread;
 - (void)captureInFFMpeg;
@@ -38,7 +37,6 @@ extern "C" {
 {
     self = [super init];
     self.fifoPipe = [NSPipe pipe];
-    self.packetArray = [NSMutableArray array];
     return self;
 }
 
@@ -74,15 +72,7 @@ extern "C" {
 - (void)onNewFrame:(NSData*)frame
 {
     dispatch_async(writeFifoQueue, ^{
-        [self.packetArray addObject:frame];
-        if (frame.length < 1458) {
-            NSMutableData *package = [NSMutableData data];
-            for (NSData *d in self.packetArray) {
-                [package appendData:d];
-            }
-            [self.fifoPipe.fileHandleForWriting writeData:package];
-            self.packetArray = [NSMutableArray array];
-        }
+        [self.fifoPipe.fileHandleForWriting writeData:frame];
     });
  }
 
