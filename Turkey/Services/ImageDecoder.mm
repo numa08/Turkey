@@ -26,6 +26,7 @@ extern "C" {
 }
 @property NSPipe *fifoPipe;
 @property BOOL captureRunning;
+int read_frame(void *opaque, uint8_t *buf, int buf_size);
 - (void)startCaptureThread;
 - (void)captureInFFMpeg;
 - (UIImage*)rgb24ToUIImage:(uint8_t*)pRgb width:(int)width height:(int)height wrap:(int)wrap;
@@ -89,14 +90,27 @@ extern "C" {
     });
 }
 
+int descriptor = 0;
+int read_frame(void *opaque, uint8_t *buf, int buf_size)
+{
+    return (int)read(descriptor, buf, buf_size);
+}
+
 - (void)captureInFFMpeg
 {
     av_register_all();
-    int fileDescriptor = self.fifoPipe.fileHandleForReading.fileDescriptor;
-    const char* file = [NSString stringWithFormat:@"pipe:%d", fileDescriptor].UTF8String;
+    avcodec_register_all();
+    avfilter_register_all();
+    
+    descriptor = self.fifoPipe.fileHandleForReading.fileDescriptor;
+    AVIOContext *avio_context;
+    size_t avio_ctx_buffer_size = 4096;
+    uint8_t *avio_ctx_buffer = (uint8_t*)av_malloc(avio_ctx_buffer_size);
+    avio_context = avio_alloc_context(avio_ctx_buffer, (int)avio_ctx_buffer_size, 0, NULL, &read_frame, NULL, NULL);
 
     AVInputFormat *input_format = av_find_input_format("h264");
     AVFormatContext *format_context = avformat_alloc_context();
+    format_context->pb = avio_context;
 //    format_context->probesize = INT_MAX;
 //    format_context->max_analyze_duration = INT_MAX;
     AVDictionary *format_dictionary = NULL;
@@ -109,7 +123,7 @@ extern "C" {
     av_dict_set(&format_dictionary, "tbc", "50", 0);
 
     int ret;
-    ret = avformat_open_input(&format_context, file, input_format, &format_dictionary);
+    ret = avformat_open_input(&format_context, NULL, input_format, &format_dictionary);
     if (ret < 0) {
         char buf[1024];
         av_strerror(AVERROR(ret), buf, 1024);
@@ -122,7 +136,7 @@ extern "C" {
         NSLog(@"avformat_find_stream_info failed: %08x", AVERROR(ret));
         return;
     }
-    av_dump_format(format_context, 0, file, 0);
+    av_dump_format(format_context, 0, "", 0);
     int stream_index = av_find_best_stream(format_context, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
     if (stream_index < 0) {
         NSLog(@"cound not find video stream");
