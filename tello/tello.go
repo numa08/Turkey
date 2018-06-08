@@ -2,6 +2,7 @@ package tello
 
 import (
 	"errors"
+	"time"
 
 	"gobot.io/x/gobot"
 	"gobot.io/x/gobot/platforms/dji/tello"
@@ -58,6 +59,9 @@ func Start() (err error) {
 func StartVideo() (err error) {
 	err = checkDroneInitialized()
 	err = drone.StartVideo()
+	gobot.Every(100*time.Millisecond, func() {
+		drone.StartVideo()
+	})
 	return err
 }
 

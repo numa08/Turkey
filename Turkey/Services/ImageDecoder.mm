@@ -46,26 +46,6 @@ int read_frame(void *opaque, uint8_t *buf, int buf_size);
     self.captureRunning = YES;
     writeFifoQueue = dispatch_queue_create("write_fifo", DISPATCH_QUEUE_SERIAL);
 
-    // 正しいフレーム情報をもった動画ファイルを読み込んで、
-    // avformat_find_stream_info を成功させる
-    dispatch_async(writeFifoQueue, ^{
-        NSString *p = [[NSBundle mainBundle] pathForResource:@"movie" ofType:@"mov"];
-        FILE *i_file = fopen(p.UTF8String, "r");
-        if (i_file == NULL) {
-            NSLog(@"failed fopen");
-            return;
-        }
-        int buffer_size = 10 * 1024;
-        char buff[buffer_size];
-        size_t size;
-        while (true) {
-            size = fread(buff, buffer_size, 1, i_file);
-            if (size == 0) {
-                break;
-            }
-            write(self.fifoPipe.fileHandleForWriting.fileDescriptor, buff, buffer_size);
-        }
-    });
     [self startCaptureThread];
     return YES;
 }
