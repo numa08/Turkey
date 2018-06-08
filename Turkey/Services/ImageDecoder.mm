@@ -46,7 +46,7 @@ extern "C" {
 {
     self.captureRunning = YES;
     writeFifoQueue = dispatch_queue_create("write_fifo", DISPATCH_QUEUE_SERIAL);
-    
+
     // 正しいフレーム情報をもった動画ファイルを読み込んで、
     // avformat_find_stream_info を成功させる
     dispatch_async(writeFifoQueue, ^{
@@ -75,12 +75,12 @@ extern "C" {
 {
     dispatch_async(writeFifoQueue, ^{
         [self.packetArray addObject:frame];
-        if (self.packetArray.count == 8) {
-            NSMutableData *packet = [NSMutableData data];
+        if (frame.length < 1458) {
+            NSMutableData *package = [NSMutableData data];
             for (NSData *d in self.packetArray) {
-                [packet appendData:d];
+                [package appendData:d];
             }
-            [self.fifoPipe.fileHandleForWriting writeData:packet];
+            [self.fifoPipe.fileHandleForWriting writeData:package];
             self.packetArray = [NSMutableArray array];
         }
     });
@@ -107,11 +107,16 @@ extern "C" {
 
     AVInputFormat *input_format = av_find_input_format("h264");
     AVFormatContext *format_context = avformat_alloc_context();
-    format_context->probesize = INT_MAX;
+//    format_context->probesize = INT_MAX;
+//    format_context->max_analyze_duration = INT_MAX;
     AVDictionary *format_dictionary = NULL;
     av_dict_set(&format_dictionary, "pixel_format", "yuv420p", 0);
     av_dict_set(&format_dictionary, "video_size", "960x720", 0);
-    av_dict_set(&format_dictionary, "profile", "main", 0);
+    av_dict_set(&format_dictionary, "profile", "77", 0);
+    av_dict_set(&format_dictionary, "fps", "25", 0);
+    av_dict_set(&format_dictionary, "tbr", "25", 0);
+    av_dict_set(&format_dictionary, "tbn", "1200k", 0);
+    av_dict_set(&format_dictionary, "tbc", "50", 0);
 
     int ret;
     ret = avformat_open_input(&format_context, file, input_format, &format_dictionary);
