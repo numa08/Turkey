@@ -44,6 +44,7 @@
 		24CD4BC620A9D70700324EFE /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB820A9D70700324EFE /* libswresample.a */; };
 		24CD4BC720A9D70700324EFE /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BB920A9D70700324EFE /* libswscale.a */; };
 		24CD4BC820A9D70700324EFE /* libx264.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24CD4BBF20A9D70700324EFE /* libx264.a */; };
+		24E2367720CE8BBA008ADC33 /* FaceTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E2367620CE8BBA008ADC33 /* FaceTrackingService.swift */; };
 		5531020FB0920652AD68A916 /* Pods_Turkey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C7AB4461AF2F295E3AB045 /* Pods_Turkey.framework */; };
 /* End PBXBuildFile section */
 
@@ -204,6 +205,7 @@
 		24CD4BBC20A9D70700324EFE /* x264_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264_config.h; sourceTree = "<group>"; };
 		24CD4BBD20A9D70700324EFE /* x264.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x264.h; sourceTree = "<group>"; };
 		24CD4BBF20A9D70700324EFE /* libx264.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libx264.a; sourceTree = "<group>"; };
+		24E2367620CE8BBA008ADC33 /* FaceTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTrackingService.swift; sourceTree = "<group>"; };
 		628F16C18F2C01E6F2696492 /* Pods-Turkey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Turkey.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Turkey/Pods-Turkey.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -327,6 +329,7 @@
 				24555B5C20A4677A00EE655E /* ImageDecoder.mm */,
 				24919DC120BFD60E0021069B /* DroneManagerService.swift */,
 				24919DC320BFE4860021069B /* ImageDecoderService.swift */,
+				24E2367620CE8BBA008ADC33 /* FaceTrackingService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -697,12 +700,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Turkey/Pods-Turkey-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ReactorKit/ReactorKit.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactorKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -718,6 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				24919DC420BFE4860021069B /* ImageDecoderService.swift in Sources */,
+				24E2367720CE8BBA008ADC33 /* FaceTrackingService.swift in Sources */,
 				24919DC220BFD60E0021069B /* DroneManagerService.swift in Sources */,
 				24555B5D20A4677A00EE655E /* ImageDecoder.mm in Sources */,
 				24085F8220A1926B00F52188 /* ViewController.swift in Sources */,

@@ -9,6 +9,7 @@
 import ReactorKit
 import RxSwift
 import RxCocoa
+import RxOptional
 
 open class FirstPersonViewController:
 UIViewController,
@@ -26,17 +27,17 @@ StoryboardView {
         Observable.just(Reactor.Action.connectDrone(port: "8090"))
         .bind(to: reactor.action)
         .disposed(by: disposeBag)
+        Observable.just(Reactor.Action.startTracking(source: reactor
+            .state
+            .asObservable()
+            .map { $0.frame }
+            .filterNil()
+        ))
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
     }
     
     public func bind(reactor: FirstPersonReactor) {
-        reactor
-            .state
-            .map {$0.connectionState}
-            .distinctUntilChanged()
-            .subscribe(onNext: {
-                print("connected \($0)")
-            })
-            .disposed(by: disposeBag)
         reactor
             .state
             .map{$0.connectionState}
@@ -51,6 +52,13 @@ StoryboardView {
             .map{ $0.frame }
             .observeOn(OperationQueueScheduler(operationQueue: OperationQueue.main))
             .subscribe(onNext: {self.image?.image = $0})
+            .disposed(by: disposeBag)
+        reactor
+            .state
+            .asObservable()
+            .map { $0.trackingResult }
+            .filterNil()
+            .subscribe(onNext: { print("detection result \($0)") })
             .disposed(by: disposeBag)
     }
 

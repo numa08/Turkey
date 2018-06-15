@@ -9,33 +9,41 @@
 import Foundation
 import ReactorKit
 import RxSwift
+import Vision
 
 public final class FirstPersonReactor : Reactor {
     public let initialState: FirstPersonReactor.State
     let droneManagerService: DroneManagerServiceType
     let imageDecoderServce: ImageDecoderServiceType
+    let trackingService: FacetrackingServiceType
     
     public enum Action {
         case connectDrone(port: String)
         case startVideo(rate: Int)
+        case startTracking(source: Observable<UIImage>)
     }
     
     public enum Mutation {
         case connected(connectedStatus: Bool)
         case decodeImage(image: UIImage)
+        case tracking(result: VNDetectedObjectObservation)
     }
     
     public struct State {
         var connectionState: Bool
         var frame: UIImage?
+        var trackingResult: VNDetectedObjectObservation?
     }
     
-    init(droneManagerService: DroneManagerServiceType, imageDecoderServce: ImageDecoderServiceType) {
+    private let faceTrackingScheduler = SerialDispatchQueueScheduler(queue: DispatchQueue(label: "faceTracking"), internalSerialQueueName: "faceTracking")
+    
+    init(droneManagerService: DroneManagerServiceType, imageDecoderServce: ImageDecoderServiceType, trackingService: FacetrackingServiceType) {
         initialState = State(
-            connectionState: false, frame: nil
+            connectionState: false, frame: nil, trackingResult: nil
         )
         self.droneManagerService = droneManagerService
         self.imageDecoderServce = imageDecoderServce
+        self.trackingService = trackingService
     }
     
     public func mutate(action: FirstPersonReactor.Action) -> Observable<FirstPersonReactor.Mutation> {
@@ -46,6 +54,8 @@ public final class FirstPersonReactor : Reactor {
         case let .startVideo(rate):
             return imageDecoderServce.decodeImage(source: droneManagerService.startVideo(rate: rate))
             .map({Mutation.decodeImage(image: $0)})
+        case .startTracking(let source):
+            return trackingService.tracking(source).map({Mutation.tracking(result: $0)}).subscribeOn(self.faceTrackingScheduler)
         }
     }
     
@@ -58,6 +68,10 @@ public final class FirstPersonReactor : Reactor {
         case let .decodeImage(image):
             var newState = state
             newState.frame = image
+            return newState
+        case .tracking(let result):
+            var newState = state
+            newState.trackingResult = result
             return newState
         }
     }

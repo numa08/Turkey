@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let storyBoard = UIStoryboard(name: "FirstPersonViewController", bundle: Bundle(for: AppDelegate.self))
-        let rootReactor = FirstPersonReactor(droneManagerService: DroneManagerService(), imageDecoderServce: ImageDecoderService())
+        let rootReactor = FirstPersonReactor(droneManagerService: DroneManagerService(), imageDecoderServce: ImageDecoderService(), trackingService: FacetrackingService())
         let rootViewController = storyBoard.instantiateViewController(withIdentifier: "identifier") as! FirstPersonViewController
         rootViewController.reactor = rootReactor
         window = UIWindow(frame: UIScreen.main.bounds)
