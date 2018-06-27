@@ -11,77 +11,37 @@ import Vision
 import RxSwift
 
 protocol FacetrackingServiceType {
-    func tracking(_ source: Observable<UIImage>) -> Observable<VNDetectedObjectObservation>
+    func tracking(_ source: Observable<UIImage>) -> Observable<VNDetectedObjectObservation?>
 }
 
-class FacetrackingService: FacetrackingServiceType {
+class FacetrackingService: FacetrackingServiceType, FaceTrackerDelegate {
     
-    enum FacetrackingError: Error {
-        case getCgImageError
-
+    private let disposeBag = DisposeBag()
+    private lazy var faceTrackingEventSubject = {
+        return PublishSubject<VNDetectedObjectObservation?>()
+    }()
+    private lazy var faceTrackingEvent = {
+        return faceTrackingEventSubject.share(replay: 1)
+    }()
+    private let tracker = FaceTracker()
+    
+    init() {
+        tracker.delegate = self
     }
     
-    private let handler = VNSequenceRequestHandler()
-    private var faceDetectedResults: [VNFaceObservation]?
-    private let faceTrackingResultObserver = PublishSubject<VNDetectedObjectObservation>()
-    private lazy var faceDetectionRequest = VNDetectFaceRectanglesRequest(completionHandler: { (request, error) in
-        if let error = error {
-            return
-        }
-        guard let req = request as? VNDetectFaceRectanglesRequest,
-            let results = req.results as? [VNFaceObservation] else {
-                return
-        }
-        if results.isEmpty {
-            return
-        }
-        self.faceDetectedResults = results
-    })
-    private lazy var faceTrackingRequestHandler = {(request: VNRequest,error: Error?) in
-        if let error = error {
-            self.faceTrackingResultObserver.onError(error)
-            return
-        }
-        guard let req = request as? VNTrackObjectRequest,
-            let results = req.results as? [VNDetectedObjectObservation] else {
-                return
-        }
-        results.forEach(self.faceTrackingResultObserver.onNext)
-    }
-    private let visionFrameworkQueue = DispatchQueue(label: "vision")
-    
-    func tracking(_ source: Observable<UIImage>) -> Observable<VNDetectedObjectObservation> {
-        return source.map { image -> Observable<VNDetectedObjectObservation> in
-            guard let ciImage = CIImage(image: image) else {
-                return Observable.empty()
-            }
-            let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))!
-            guard let faceDetectedResults = self.faceDetectedResults, !faceDetectedResults.isEmpty else {
-                autoreleasepool {
-                    self.detectFace(ciImage, orientation)
-                }
-                return Observable.empty()
-            }
-            return autoreleasepool {
-                self.trackingFace(ciImage)
-            }
-        }.concat()
+    func tracking(_ source: Observable<UIImage>) -> Observable<VNDetectedObjectObservation?> {
+        source.subscribe(onNext: tracker.trackFace).disposed(by: disposeBag)
+        return faceTrackingEvent
     }
     
-    private func detectFace(_ image: CIImage, _ orientation: CGImagePropertyOrientation) {
-        let handler = VNImageRequestHandler(ciImage: image, orientation: orientation)
-        visionFrameworkQueue.async {
-            try? handler.perform([self.faceDetectionRequest])
-        }
+    func error(error: Error) {
+        faceTrackingEventSubject.onError(error)
     }
     
-    private func trackingFace(_ image: CIImage) -> Observable<VNDetectedObjectObservation> {
-        let requests = self.faceDetectedResults!.map { face -> VNTrackObjectRequest in
-            return VNTrackObjectRequest(detectedObjectObservation: face, completionHandler: self.faceTrackingRequestHandler)
+    func handleFacePosition(positions: [VNDetectedObjectObservation]) {
+        if positions.isEmpty {
+            faceTrackingEventSubject.onNext(nil)
         }
-        visionFrameworkQueue.async {
-            try? self.handler.perform(requests, on: image)
-        }
-        return faceTrackingResultObserver.share(replay: 1)
+        positions.forEach(faceTrackingEventSubject.onNext)
     }
 }

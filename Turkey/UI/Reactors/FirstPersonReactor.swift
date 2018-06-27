@@ -26,7 +26,7 @@ public final class FirstPersonReactor : Reactor {
     public enum Mutation {
         case connected(connectedStatus: Bool)
         case decodeImage(image: UIImage)
-        case tracking(result: VNDetectedObjectObservation)
+        case tracking(result: VNDetectedObjectObservation?, error: Error?)
     }
     
     public struct State {
@@ -55,7 +55,7 @@ public final class FirstPersonReactor : Reactor {
             return imageDecoderServce.decodeImage(source: droneManagerService.startVideo(rate: rate))
             .map({Mutation.decodeImage(image: $0)})
         case .startTracking(let source):
-            return trackingService.tracking(source).map({Mutation.tracking(result: $0)}).subscribeOn(self.faceTrackingScheduler)
+            return trackingService.tracking(source).map({Mutation.tracking(result: $0, error: nil)}).catchError({Observable.just(Mutation.tracking(result: nil, error: $0))}).subscribeOn(self.faceTrackingScheduler)
         }
     }
     
@@ -69,7 +69,7 @@ public final class FirstPersonReactor : Reactor {
             var newState = state
             newState.frame = image
             return newState
-        case .tracking(let result):
+        case let .tracking(result, _):
             var newState = state
             newState.trackingResult = result
             return newState

@@ -13,6 +13,7 @@
 		24085F8720A1926C00F52188 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24085F8620A1926C00F52188 /* Assets.xcassets */; };
 		24085F8A20A1926C00F52188 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24085F8820A1926C00F52188 /* LaunchScreen.storyboard */; };
 		24085F9620A1DB4400F52188 /* Tello.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24085F9520A1DB4400F52188 /* Tello.framework */; };
+		24414D5C20D93D0200468CF3 /* FaceTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24414D5B20D93D0200468CF3 /* FaceTracker.swift */; };
 		24555B5D20A4677A00EE655E /* ImageDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24555B5C20A4677A00EE655E /* ImageDecoder.mm */; };
 		24555B5F20A46E2600EE655E /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24555B5E20A46E2500EE655E /* Accelerate.framework */; };
 		24555B6120A46E2C00EE655E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24555B6020A46E2C00EE655E /* AssetsLibrary.framework */; };
@@ -60,6 +61,7 @@
 		24085F8B20A1926C00F52188 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24085F9520A1DB4400F52188 /* Tello.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Tello.framework; path = tello/Tello.framework; sourceTree = "<group>"; };
 		240D601420A3A8070078D167 /* Turkey-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Turkey-Bridging-Header.h"; sourceTree = "<group>"; };
+		24414D5B20D93D0200468CF3 /* FaceTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTracker.swift; sourceTree = "<group>"; };
 		24555B5B20A4677A00EE655E /* ImageDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDecoder.h; sourceTree = "<group>"; };
 		24555B5C20A4677A00EE655E /* ImageDecoder.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageDecoder.mm; sourceTree = "<group>"; };
 		24555B5E20A46E2500EE655E /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -330,6 +332,7 @@
 				24919DC120BFD60E0021069B /* DroneManagerService.swift */,
 				24919DC320BFE4860021069B /* ImageDecoderService.swift */,
 				24E2367620CE8BBA008ADC33 /* FaceTrackingService.swift */,
+				24414D5B20D93D0200468CF3 /* FaceTracker.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -729,6 +732,7 @@
 				24085F8220A1926B00F52188 /* ViewController.swift in Sources */,
 				24919DC720BFE8FE0021069B /* FirstPersonViewController.swift in Sources */,
 				247A5F5220BFD271003F2AD0 /* FirstPersonReactor.swift in Sources */,
+				24414D5C20D93D0200468CF3 /* FaceTracker.swift in Sources */,
 				24919DCA20C0D7EF0021069B /* errorToThrow.swift in Sources */,
 				24085F8020A1926B00F52188 /* AppDelegate.swift in Sources */,
 			);
