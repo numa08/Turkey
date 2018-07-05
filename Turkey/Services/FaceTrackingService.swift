@@ -30,7 +30,7 @@ class FacetrackingService: FacetrackingServiceType, FaceTrackerDelegate {
     }
     
     func tracking(_ source: Observable<UIImage>) -> Observable<VNDetectedObjectObservation?> {
-        source.subscribe(onNext: tracker.trackFace).disposed(by: disposeBag)
+        source.observeOn(SerialDispatchQueueScheduler(internalSerialQueueName: "facetracking")).subscribe(onNext: tracker.trackFace).disposed(by: disposeBag)
         return faceTrackingEvent
     }
     

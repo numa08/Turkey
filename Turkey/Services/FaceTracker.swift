@@ -28,7 +28,6 @@ class FaceTracker {
     private var trackingRequests: [VNTrackObjectRequest]?
     
     lazy var sequenceRequestHandler = VNSequenceRequestHandler()
-    private let visionFrameworkTaskQueue = DispatchQueue(label: "vision")
 
     init() {
         self.prepareVisionRequest()
@@ -44,25 +43,25 @@ class FaceTracker {
                 let results = faceDetectionRequest.results as? [VNFaceObservation] else {
                     return
             }
-            DispatchQueue.main.async {
-                for observation in results {
-                    let faceTrackingRequest =  VNTrackObjectRequest(detectedObjectObservation: observation, completionHandler: {(request, error) in
-                        if let error = error {
-                            print("FaceTracking error: \(String(describing: error))")
-                        }
-                        guard let trackingRequest = request as? VNTrackObjectRequest,
-                            let results = trackingRequest.results as? [VNDetectedObjectObservation] else {
-                                return
-                        }
-                        DispatchQueue.main.async {
-                            self.delegate?.handleFacePosition(positions: results)
-                        }
-                    })
-                    requests.append(faceTrackingRequest)
-                }
-                self.trackingRequests = requests
+            for observation in results {
+                let faceTrackingRequest =  VNTrackObjectRequest(detectedObjectObservation: observation, completionHandler: {(request, error) in
+                    if let error = error {
+                        print("FaceTracking error: \(String(describing: error))")
+                    }
+                    guard let trackingRequest = request as? VNTrackObjectRequest,
+                        let results = trackingRequest.results as? [VNDetectedObjectObservation] else {
+                            return
+                    }
+                    DispatchQueue.main.async {
+                        self.delegate?.handleFacePosition(positions: results)
+                    }
+                })
+                faceTrackingRequest.preferBackgroundProcessing = true
+                requests.append(faceTrackingRequest)
             }
+            self.trackingRequests = requests
         }
+        faceDetetionRequest.preferBackgroundProcessing = true
         self.detectionRequests = [faceDetetionRequest]
         self.sequenceRequestHandler = VNSequenceRequestHandler()
     }
@@ -78,25 +77,22 @@ class FaceTracker {
         }
         guard let requests = self.trackingRequests, !requests.isEmpty else {
             let imageRequestHandler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)
-            visionFrameworkTaskQueue.async {
-                do {
-                    guard let detectRequests = self.detectionRequests else {
-                        return
-                    }
-                    try imageRequestHandler.perform(detectRequests)
-                } catch let error as NSError {
-                    NSLog("Failed to perform FaceRectangleRequest: %@", error)
+            do {
+                guard let detectRequests = self.detectionRequests else {
+                    return
                 }
+                try imageRequestHandler.perform(detectRequests)
+            } catch let error as NSError {
+                NSLog("Failed to perform FaceRectangleRequest: %@", error)
             }
             return
         }
-        visionFrameworkTaskQueue.async {
-            do {
-                try self.sequenceRequestHandler.perform(requests, on: ciImage, orientation: orientation)
-            } catch let error as NSError {
-                NSLog("Failed to perform SequenceRequest: %@", error)
-            }
+        do {
+            try self.sequenceRequestHandler.perform(requests, on: ciImage, orientation: orientation)
+        } catch let error as NSError {
+            NSLog("Failed to perform SequenceRequest: %@", error)
         }
+
         
         var newTrackingRequests = [VNTrackObjectRequest]()
         for trackingRequest in requests {
