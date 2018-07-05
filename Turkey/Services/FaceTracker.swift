@@ -67,7 +67,7 @@ class FaceTracker {
     }
     
     func trackFace(_ image: UIImage) {
-        guard let ciImage = CIImage(image: image) else {
+        guard let imageRef = image.cgImage else {
             self.delegate?.error(error: FacetrackingError.getCgImageError)
             return
         }
@@ -76,7 +76,7 @@ class FaceTracker {
             return
         }
         guard let requests = self.trackingRequests, !requests.isEmpty else {
-            let imageRequestHandler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)
+            let imageRequestHandler = VNImageRequestHandler(cgImage: imageRef, orientation: orientation)
             do {
                 guard let detectRequests = self.detectionRequests else {
                     return
@@ -88,7 +88,7 @@ class FaceTracker {
             return
         }
         do {
-            try self.sequenceRequestHandler.perform(requests, on: ciImage, orientation: orientation)
+            try self.sequenceRequestHandler.perform(requests, on: imageRef, orientation: orientation)
         } catch let error as NSError {
             NSLog("Failed to perform SequenceRequest: %@", error)
         }
