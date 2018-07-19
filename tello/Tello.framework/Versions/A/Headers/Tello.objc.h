@@ -25,6 +25,8 @@
 
 FOUNDATION_EXPORT void TelloInitDrone(NSString* port);
 
+FOUNDATION_EXPORT BOOL TelloLand(NSError** error);
+
 FOUNDATION_EXPORT BOOL TelloRegisterOnConnectedEvent(id<TelloConnectedEventHandler> callback, NSError** error);
 
 FOUNDATION_EXPORT BOOL TelloRegisterVideoFrameEvent(id<TelloVideoFrameEventHandler> callback, NSError** error);
@@ -34,6 +36,8 @@ FOUNDATION_EXPORT BOOL TelloSetVideoEncoderRate(long rate, NSError** error);
 FOUNDATION_EXPORT BOOL TelloStart(NSError** error);
 
 FOUNDATION_EXPORT BOOL TelloStartVideo(NSError** error);
+
+FOUNDATION_EXPORT BOOL TelloTakeOff(NSError** error);
 
 @class TelloConnectedEventHandler;
 

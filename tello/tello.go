@@ -65,6 +65,20 @@ func StartVideo() (err error) {
 	return err
 }
 
+// TakeOff はドローンを離陸させます
+func TakeOff() (err error) {
+	err = checkDroneInitialized()
+	err = drone.TakeOff()
+	return err
+}
+
+// Land はドローンを着陸させます
+func Land() (err error) {
+	err = checkDroneInitialized()
+	err = drone.Land()
+	return err
+}
+
 // SetVideoEncoderRate は tello の VideoEncoderRate を設定します
 func SetVideoEncoderRate(rate int) (err error) {
 	err = checkDroneInitialized()

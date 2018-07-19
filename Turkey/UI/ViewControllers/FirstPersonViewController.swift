@@ -17,6 +17,8 @@ StoryboardView {
     public var disposeBag: DisposeBag = DisposeBag()
     public typealias Reactor = FirstPersonReactor
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var takeoffButton: UIButton!
+    @IBOutlet weak var landingButton: UIButton!
     
     private lazy var rectangleView: UIView = {
         let view = UIView()
@@ -44,6 +46,15 @@ StoryboardView {
         ))
         .bind(to: reactor.action)
         .disposed(by: disposeBag)
+        
+        takeoffButton.rx.controlEvent(UIControlEvents.touchUpInside).asObservable()
+            .map{_ in Reactor.Action.takeoffDrone()}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        landingButton.rx.controlEvent(UIControlEvents.touchUpInside).asObservable()
+            .map{_ in Reactor.Action.landDrone()}
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     public func bind(reactor: FirstPersonReactor) {
@@ -54,6 +65,35 @@ StoryboardView {
             .filter{$0}
             .map({_ in Reactor.Action.startVideo(rate: 4)})
             .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        reactor
+            .state
+            .map{$0.connectionState}
+            .distinctUntilChanged()
+            .filter{$0}
+            .subscribe(onNext: { self.takeoffButton.isEnabled = $0 })
+            .disposed(by: disposeBag)
+        reactor
+            .state
+            .map{$0.droneFlyingStatus}
+            .distinctUntilChanged()
+            .filterNil()
+            .filter { $0 == .onAir }
+            .subscribe(onNext: { _ in
+                self.takeoffButton.isEnabled = false
+                self.landingButton.isEnabled = true
+            })
+            .disposed(by: disposeBag)
+        reactor
+            .state
+            .map{$0.droneFlyingStatus}
+            .distinctUntilChanged()
+            .filterNil()
+            .filter { $0 == .onLand }
+            .subscribe(onNext: {_ in
+                self.takeoffButton.isEnabled = true
+                self.landingButton.isEnabled = false
+            })
             .disposed(by: disposeBag)
         reactor
             .state
